@@ -61,6 +61,10 @@ class Matrix_radio_group_ft extends EE_Fieldtype {
 	{
 		if (! isset($this->cache['included_resources']))
 		{
+			$css = '<style type="text/css">'
+			     .   'td.matrix_radio_group { vertical-align: middle !important; }'
+			     . '</style>';
+
 			$js = '<script type="text/javascript">'
 			    .   'Matrix.bind("matrix_radio_group", "display", function(cell){'
 			    .     'var $inputs = jQuery("input", cell.dom.$td);'
@@ -68,6 +72,7 @@ class Matrix_radio_group_ft extends EE_Fieldtype {
 			    .   '});'
 			    . '</script>';
 
+			$this->EE->cp->add_to_head($css);
 			$this->EE->cp->add_to_foot($js);
 
 			$this->cache['included_resources'] = TRUE;
@@ -75,9 +80,14 @@ class Matrix_radio_group_ft extends EE_Fieldtype {
 
 		$val = isset($this->row_id) ? 'row_id_'.$this->row_id : '0';
 
-		return '<label><input type="radio" name="matrix_radio_group[col_id_'.$this->col_id.']" value="'.$val.'" '.($data == 'y' ? 'checked="checked"' : '').' />'
-		       . NBS.NBS.NBS . $this->settings['label'].'</label>'
-		       . '<input type="hidden" name="'.$this->cell_name.'" value="'.$val.'" />';
+		$html = '<label><input type="radio" name="matrix_radio_group[col_id_'.$this->col_id.']" value="'.$val.'" '.($data == 'y' ? 'checked="checked"' : '').' />'
+		      . NBS.NBS.NBS . $this->settings['label'].'</label>'
+		      . '<input type="hidden" name="'.$this->cell_name.'" value="'.$val.'" />';
+
+		return array(
+			'data' => $html,
+			'class' => 'matrix_radio_group'
+		);
 	}
 
 	// --------------------------------------------------------------------
