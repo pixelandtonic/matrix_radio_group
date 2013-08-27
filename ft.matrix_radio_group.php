@@ -55,6 +55,14 @@ class Matrix_radio_group_ft extends EE_Fieldtype {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Display Field
+	 */
+	function display_field($data)
+	{
+		return 'This fieldtype only works within Matrix fields.';
+	}
+
+	/**
 	 * Display Cell
 	 */
 	function display_cell($data)
